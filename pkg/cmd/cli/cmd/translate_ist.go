@@ -102,7 +102,7 @@ $ obu translate nodejs:12 -n openshift
 	translateCmd.Flags().BoolVar(&(cfg.OverrideLocal), "override-local", cfg.OverrideLocal,
 		"Bypass local copy of image in OpenShift Internal registry and return external registry reference.")
 	translateCmd.Flags().BoolVar(&(cfg.SHA), "sha-vs-tag", cfg.SHA,
-		"End in the translated image reference with the SHA instead of the tag name.")
+		"End the translated image reference with the SHA instead of the tag name.")
 	translateCmd.Flags().StringVarP(&(cfg.Namespace), "namespace", "n", "",
 		"Specify the namespace the image stream is located in")
 
