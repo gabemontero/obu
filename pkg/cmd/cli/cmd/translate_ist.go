@@ -71,8 +71,23 @@ $ obu translate nodejs:12 -n openshift
 					fmt.Fprintf(os.Stderr, "ERROR: image stream tag %s has no tag references\n", istName)
 				}
 
-				fmt.Fprintf(os.Stdout, "image stream tag %s translates to image reference %s\n", istName,
-					tagRef.From.Name)
+				if !cfg.SHA {
+					fmt.Fprintf(os.Stdout, "%s\n", tagRef.From.Name)
+					return
+				}
+				latestGen := int64(0)
+				latestGenImage := ""
+				for _, tagStatus := range is.Status.Tags {
+					if tagStatus.Tag == tag {
+						for _, item := range tagStatus.Items {
+							if item.Generation > latestGen {
+								latestGen = item.Generation
+								latestGenImage = item.DockerImageReference
+							}
+						}
+					}
+				}
+				fmt.Fprintf(os.Stdout,"%s\n", latestGenImage)
 				return
 			}
 			// use local tag reference policy if available
@@ -81,11 +96,13 @@ $ obu translate nodejs:12 -n openshift
 				fmt.Fprintf(os.Stderr, "ERROR: unable to resolve image stream tag %s\n", istName)
 				return
 			}
-			fmt.Fprintf(os.Stdout, "image stream tag %s translates to image reference %s\n", istName, img)
+			fmt.Fprintf(os.Stdout, "%s\n", img)
 		},
 	}
 	translateCmd.Flags().BoolVar(&(cfg.OverrideLocal), "override-local", cfg.OverrideLocal,
 		"Bypass local copy of image in OpenShift Internal registry and return external registry reference.")
+	translateCmd.Flags().BoolVar(&(cfg.SHA), "sha-vs-tag", cfg.SHA,
+		"End in the translated image reference with the SHA instead of the tag name.")
 	translateCmd.Flags().StringVarP(&(cfg.Namespace), "namespace", "n", "",
 		"Specify the namespace the image stream is located in")
 
