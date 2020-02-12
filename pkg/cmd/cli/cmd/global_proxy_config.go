@@ -98,15 +98,15 @@ $ obu proxy --no-proxy-only
 		},
 	}
 
-	proxyCmd.Flags().BoolVar(&(cfg.HttpProxyOnly), "http-proxy-only", cfg.HttpProxyOnly,
+	proxyCmd.Flags().BoolVar(&(cfg.HttpProxyOnly), "http-proxy", cfg.HttpProxyOnly,
 		"Only list the HTTP proxy host if it is available.")
-	proxyCmd.Flags().BoolVar(&(cfg.HttpProxyOnly), "https-proxy-only", cfg.HttpProxyOnly,
+	proxyCmd.Flags().BoolVar(&(cfg.HttpProxyOnly), "https-proxy", cfg.HttpProxyOnly,
 		"Only list the HTTPS proxy host if it is available.")
-	proxyCmd.Flags().BoolVar(&(cfg.NoProxyOnly), "no-proxy-only", cfg.NoProxyOnly,
+	proxyCmd.Flags().BoolVar(&(cfg.NoProxyOnly), "no-proxy", cfg.NoProxyOnly,
 		"Only list the no proxy list if it is available.")
 	proxyCmd.Flags().BoolVar(&(cfg.ENVVarsOnly), "env-vars", cfg.ENVVarsOnly,
 		"Prints out bash style environment variable setting syntax for the well known proxy environment variables, using any available values.")
-	proxyCmd.Flags().BoolVar(&(cfg.CADataOnly), "ca-data-only", cfg.CADataOnly,
+	proxyCmd.Flags().BoolVar(&(cfg.CADataOnly), "ca-data", cfg.CADataOnly,
 		"Only list the raw CA CRT data (ca.crt contents) for accessing the HTTPS proxy.")
 
 	return proxyCmd
