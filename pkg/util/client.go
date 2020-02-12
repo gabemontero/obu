@@ -7,11 +7,14 @@ import (
 	"path/filepath"
 
 	"github.com/gabemontero/obu/pkg/api"
+	configset "github.com/openshift/client-go/config/clientset/versioned"
+	configv1 "github.com/openshift/client-go/config/clientset/versioned/typed/config/v1"
 	imageset "github.com/openshift/client-go/image/clientset/versioned"
 	imagev1 "github.com/openshift/client-go/image/clientset/versioned/typed/image/v1"
 
 
 	"k8s.io/client-go/rest"
+	kubeset "k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 	kcmdutil "k8s.io/kubectl/pkg/cmd/util"
@@ -47,6 +50,22 @@ func GetImageClient(cfg *rest.Config) (imagev1.ImageV1Interface, error) {
 		return nil, err
 	}
 	return client.ImageV1(), nil
+}
+
+func GetProxyClient(cfg *rest.Config) (configv1.ProxyInterface, error) {
+	client, err := configset.NewForConfig(cfg)
+	if err != nil {
+		return nil, err
+	}
+	return client.ConfigV1().Proxies(), nil
+}
+
+func GetCoreClient(cfg *rest.Config) (*kubeset.Clientset, error) {
+	client, err := kubeset.NewForConfig(cfg)
+	if err != nil {
+		return nil, err
+	}
+	return client, nil
 }
 
 func GetCurrentProject() string {

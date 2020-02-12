@@ -12,14 +12,13 @@ import (
 
 	"github.com/openshift/library-go/pkg/image/imageutil"
 	imagehelpers "github.com/openshift/oc/pkg/helpers/image"
-
 )
 
 func NewCmdTranslateIST(cfg *api.Config) *cobra.Command {
 	translateCmd := &cobra.Command{
-		Use: "translate <imagestreamtag> [<options>]",
+		Use:   "translate <imagestreamtag> [<options>]",
 		Short: "Translate an image stream tag",
-		Long: "Translate an image stream reference to an image reference that can be pulled from an image registry.",
+		Long:  "Translate an image stream reference to an image reference that can be pulled from an image registry.",
 		Example: `
 # Translate an image stream tag that exists in the current project/namespace
 $ obu translate mystream:latest
@@ -27,7 +26,7 @@ $ obu translate mystream:latest
 # Translate an image stream tag that exists in another namespace
 $ obu translate nodejs:12 -n openshift
 `,
-		Run: func(cmd *cobra.Command, args[]string) {
+		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) == 0 {
 				fmt.Fprintf(os.Stderr, "ERROR: not enough arguments: %s\n", cmd.Use)
 				return
@@ -72,7 +71,7 @@ $ obu translate nodejs:12 -n openshift
 				}
 
 				if !cfg.SHA {
-					fmt.Fprintf(os.Stdout, "%s\n", tagRef.From.Name)
+					fmt.Fprintf(os.Stdout, tagRef.From.Name)
 					return
 				}
 				latestGen := int64(0)
@@ -87,7 +86,7 @@ $ obu translate nodejs:12 -n openshift
 						}
 					}
 				}
-				fmt.Fprintf(os.Stdout,"%s\n", latestGenImage)
+				fmt.Fprintf(os.Stdout, latestGenImage)
 				return
 			}
 			// use local tag reference policy if available
@@ -96,7 +95,7 @@ $ obu translate nodejs:12 -n openshift
 				fmt.Fprintf(os.Stderr, "ERROR: unable to resolve image stream tag %s\n", istName)
 				return
 			}
-			fmt.Fprintf(os.Stdout, "%s\n", img)
+			fmt.Fprintf(os.Stdout, img)
 		},
 	}
 	translateCmd.Flags().BoolVar(&(cfg.OverrideLocal), "override-local", cfg.OverrideLocal,

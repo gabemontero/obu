@@ -20,6 +20,7 @@ func NewCmdCLI() *cobra.Command {
 	obu.PersistentFlags().StringVar(&(cfg.Kubeconfig), "kubeconfig", cfg.Kubeconfig,
 		"Path to the kubeconfig file to use for CLI requests.")
 	obu.AddCommand(cmd.NewCmdTranslateIST(cfg))
+	obu.AddCommand(cmd.NewCmdGlobalProxyConfig(cfg))
 
 	return obu
 }
