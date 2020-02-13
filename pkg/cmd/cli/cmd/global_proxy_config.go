@@ -17,7 +17,7 @@ func NewCmdGlobalProxyConfig(cfg *api.Config) *cobra.Command {
 		Example: `
 # List all three proxy related settings as if you were setting environment variables, where the hosts
 # are listed if they have been successfully contacted by the global proxy operator
-$ obu proxy
+$ obu proxy --env-vars
 
 # List only the HTTPS proxy host if the global proxy operator was able to connect to it
 $ obu proxy --https-proxy-only

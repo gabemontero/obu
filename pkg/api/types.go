@@ -11,8 +11,13 @@ type Config struct {
 	HttpProxyOnly bool
 	HttpsProxyOnly bool
 	NoProxyOnly bool
-	CADataOnly bool
 	ENVVarsOnly bool
+
+	// both proxy and image registry
+	CADataOnly bool
+
+	// image registry
+	DockerConfigFile bool
 
 	Namespace string
 
