@@ -90,10 +90,7 @@ $ obu proxy --no-proxy-only
 				fmt.Fprintf(os.Stdout, "http_proxy=%s\n", proxyCfg.Status.HTTPProxy)
 				fmt.Fprintf(os.Stdout, "no_proxy=%s\n", proxyCfg.Status.NoProxy)
 			default:
-				fmt.Fprintf(os.Stdout, "Use one of the available options listed under help to get\n")
-				fmt.Fprintf(os.Stdout, "content that can be stored in files, parameters, or environment\n")
-				fmt.Fprintf(os.Stdout, "variables that can be subsequently consumed by your image\n")
-				fmt.Fprintf(os.Stdout, "build tool.\n")
+				util.DefaultMessage()
 			}
 		},
 	}

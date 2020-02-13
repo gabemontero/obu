@@ -21,6 +21,7 @@ func NewCmdCLI() *cobra.Command {
 		"Path to the kubeconfig file to use for CLI requests.")
 	obu.AddCommand(cmd.NewCmdTranslateIST(cfg))
 	obu.AddCommand(cmd.NewCmdGlobalProxyConfig(cfg))
+	obu.AddCommand(cmd.NewCmdInternalRegistry(cfg))
 
 	return obu
 }
