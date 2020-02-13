@@ -21,10 +21,11 @@ func NewCmdInternalRegistry(cfg *api.Config) *cobra.Command {
 		Short:   "Access OpenShift internal registry configuration.",
 		Long:    "Pull various elements from OpenShift's internal registry configuration.",
 		Example: `
-# Print ca.crt file content for accessing the OpenShift internal registry over HTTPS
+# Print ca.crt file content for accessing the OpenShift internal registry over HTTPS.  This will inspect
+# config maps in the openshift-controller-manager namespace.
 $ obu registry --ca-data
 
-# Print Docker config file content for authenticating with the OpenShift internal registry
+# Print Docker config file content for authenticating with the OpenShift internal registry.
 $ obu proxy --https-proxy-only
 `,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -69,6 +70,8 @@ $ obu proxy --https-proxy-only
 		"Only list the raw CA CRT data (ca.crt contents) for accessing the registry.")
 	regCmd.Flags().BoolVar(&(cfg.DockerConfigFile), "docker-cfg-file", cfg.DockerConfigFile,
 		"Only print the docker config file for pushing/pulling the image (defaults to internal image registry)")
+	regCmd.Flags().StringVarP(&(cfg.Namespace), "namespace", "n", "",
+		"Specify the namespace whose OpenShift builder service account should be inspected for docker authentication config")
 	return regCmd
 }
 
