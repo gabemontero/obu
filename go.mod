@@ -3,20 +3,17 @@ module github.com/gabemontero/obu
 go 1.13
 
 require (
-	github.com/google/gofuzz v1.1.0 // indirect
-	github.com/imdario/mergo v0.3.8 // indirect
-	github.com/openshift/api v0.0.0-20191217141120-791af96035a5
-	github.com/openshift/client-go v0.0.0-20191216194936-57f413491e9e
-	github.com/openshift/library-go v0.0.0-20200102104155-021f88c1381d
+	github.com/BurntSushi/toml v0.3.1
+	github.com/containers/image v3.0.2+incompatible
+	github.com/openshift/api v3.9.1-0.20191028134408-abf28f93703b+incompatible
+	github.com/openshift/client-go v0.0.0-20191022152013-2823239d2298
+	github.com/openshift/library-go v0.0.0-20191029093732-d368763acf52
 	github.com/openshift/oc v4.2.0-alpha.0+incompatible
+	github.com/openshift/runtime-utils v0.0.0-20191011150825-9169de69ebf6
 	github.com/spf13/cobra v0.0.5
-	golang.org/x/net v0.0.0-20200114155413-6afb5195e5aa // indirect
-	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d // indirect
-	golang.org/x/time v0.0.0-20191024005414-555d28b269f0 // indirect
-	k8s.io/api v0.17.1
-	k8s.io/apimachinery v0.17.1
-	k8s.io/cli-runtime v0.17.0
-	k8s.io/client-go v0.17.1
-	k8s.io/klog v1.0.0
-	k8s.io/kubectl v0.17.0
+	k8s.io/api v0.0.0-20191122220107-b5267f2975e0
+	k8s.io/apimachinery v0.0.0-20191121175448-79c2a76c473a
+	k8s.io/cli-runtime v0.0.0-20191122222818-9150eb3ded31
+	k8s.io/client-go v0.0.0-20191122220542-ed16ecbdf3a0
+	k8s.io/kubectl v0.0.0-20191122225023-1e3c8b70f494
 )

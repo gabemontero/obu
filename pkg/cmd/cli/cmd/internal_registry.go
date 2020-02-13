@@ -26,7 +26,7 @@ func NewCmdInternalRegistry(cfg *api.Config) *cobra.Command {
 $ obu registry --ca-data
 
 # Print Docker config file content for authenticating with the OpenShift internal registry.
-$ obu proxy --https-proxy-only
+$ obu registry --docker-cfg-file
 `,
 		Run: func(cmd *cobra.Command, args []string) {
 			kubeconfig, err := util.GetConfig(cfg)
@@ -34,11 +34,7 @@ $ obu proxy --https-proxy-only
 				fmt.Fprintf(os.Stderr, "ERROR: problem with kubeconfig: %v\n", err)
 				return
 			}
-			coreClient, err := util.GetCoreClient(kubeconfig)
-			if err != nil {
-				fmt.Fprintf(os.Stderr, "ERROR: problem with k8s core client: %v\n", err)
-				return
-			}
+			coreClient := util.GetCoreClient(kubeconfig)
 			registryCAMap, err := coreClient.CoreV1().ConfigMaps("openshift-controller-manager").Get("openshift-service-ca", metav1.GetOptions{})
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "ERROR: problem retrieving registry CA config map: %v\n", err)
@@ -69,7 +65,7 @@ $ obu proxy --https-proxy-only
 	regCmd.Flags().BoolVar(&(cfg.CADataOnly), "ca-data", cfg.CADataOnly,
 		"Only list the raw CA CRT data (ca.crt contents) for accessing the registry.")
 	regCmd.Flags().BoolVar(&(cfg.DockerConfigFile), "docker-cfg-file", cfg.DockerConfigFile,
-		"Only print the docker config file for pushing/pulling the image (defaults to internal image registry)")
+		"Only print the docker config file for pushing to/pulling from the image internal image registry)")
 	regCmd.Flags().StringVarP(&(cfg.Namespace), "namespace", "n", "",
 		"Specify the namespace whose OpenShift builder service account should be inspected for docker authentication config")
 	return regCmd

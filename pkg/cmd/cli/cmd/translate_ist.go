@@ -42,10 +42,7 @@ $ obu translate nodejs:12 -n openshift
 				fmt.Fprintf(os.Stderr, "ERROR: problem with kubeconfig: %v\n", err)
 				return
 			}
-			imageClient, err := util.GetImageClient(kubeconfig)
-			if err != nil {
-				fmt.Fprintf(os.Stderr, "ERROR: problem with openshift image client: %v\n", err)
-			}
+			imageClient := util.GetImageClient(kubeconfig)
 			namespace := cfg.Namespace
 			if len(namespace) == 0 {
 				namespace = util.GetCurrentProject()

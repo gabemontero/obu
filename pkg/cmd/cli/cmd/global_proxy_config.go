@@ -35,11 +35,7 @@ $ obu proxy --no-proxy-only
 				fmt.Fprintf(os.Stderr, "ERROR: problem with kubeconfig: %v\n", err)
 				return
 			}
-			proxyClient, err := util.GetProxyClient(kubeconfig)
-			if err != nil {
-				fmt.Fprintf(os.Stderr, "ERROR: problem with openshift proxy client: %v\n", err)
-				return
-			}
+			proxyClient := util.GetProxyClient(kubeconfig)
 			proxyCfg, err := proxyClient.Get("cluster", metav1.GetOptions{})
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "ERROR: problem retrieving openshift global proxy config: %v\n", err)
@@ -50,11 +46,7 @@ $ obu proxy --no-proxy-only
 				return
 			}
 
-			coreClient, err := util.GetCoreClient(kubeconfig)
-			if err != nil {
-				fmt.Fprintf(os.Stderr, "ERROR: problem with k8s core client: %v\n", err)
-				return
-			}
+			coreClient := util.GetCoreClient(kubeconfig)
 			//TODO alternatively, we could allow for a creation of a CM in the specified namespace that has
 			// the label 'config.openshift.io/inject-trusted-cabundle: "true"'
 			ocmProxyCM, err := coreClient.CoreV1().ConfigMaps("openshift-controller-manager").Get(

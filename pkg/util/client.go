@@ -11,6 +11,8 @@ import (
 	configv1 "github.com/openshift/client-go/config/clientset/versioned/typed/config/v1"
 	imageset "github.com/openshift/client-go/image/clientset/versioned"
 	imagev1 "github.com/openshift/client-go/image/clientset/versioned/typed/image/v1"
+	operatorset "github.com/openshift/client-go/operator/clientset/versioned"
+	operatorv1alpha1 "github.com/openshift/client-go/operator/clientset/versioned/typed/operator/v1alpha1"
 
 
 	"k8s.io/client-go/rest"
@@ -44,28 +46,24 @@ func GetConfig(cfg *api.Config) (*rest.Config, error) {
 	return nil, fmt.Errorf("could not locate a kubeconfig")
 }
 
-func GetImageClient(cfg *rest.Config) (imagev1.ImageV1Interface, error) {
-	client, err := imageset.NewForConfig(cfg)
-	if err != nil {
-		return nil, err
-	}
-	return client.ImageV1(), nil
+func GetImageClient(cfg *rest.Config) imagev1.ImageV1Interface {
+	return imageset.NewForConfigOrDie(cfg).ImageV1()
 }
 
-func GetProxyClient(cfg *rest.Config) (configv1.ProxyInterface, error) {
-	client, err := configset.NewForConfig(cfg)
-	if err != nil {
-		return nil, err
-	}
-	return client.ConfigV1().Proxies(), nil
+func GetProxyClient(cfg *rest.Config) configv1.ProxyInterface {
+	return configset.NewForConfigOrDie(cfg).ConfigV1().Proxies()
 }
 
-func GetCoreClient(cfg *rest.Config) (*kubeset.Clientset, error) {
-	client, err := kubeset.NewForConfig(cfg)
-	if err != nil {
-		return nil, err
-	}
-	return client, nil
+func GetImageMirrorClient(cfg *rest.Config) operatorv1alpha1.ImageContentSourcePolicyInterface {
+	return operatorset.NewForConfigOrDie(cfg).OperatorV1alpha1().ImageContentSourcePolicies()
+}
+
+func GetImageConfigClient(cfg *rest.Config) configv1.ImageInterface {
+	return configset.NewForConfigOrDie(cfg).ConfigV1().Images()
+}
+
+func GetCoreClient(cfg *rest.Config) *kubeset.Clientset {
+	return kubeset.NewForConfigOrDie(cfg)
 }
 
 func GetCurrentProject() string {

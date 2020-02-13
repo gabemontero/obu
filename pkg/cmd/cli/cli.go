@@ -22,6 +22,7 @@ func NewCmdCLI() *cobra.Command {
 	obu.AddCommand(cmd.NewCmdTranslateIST(cfg))
 	obu.AddCommand(cmd.NewCmdGlobalProxyConfig(cfg))
 	obu.AddCommand(cmd.NewCmdInternalRegistry(cfg))
+	obu.AddCommand(cmd.NewCmdMirrorRegistryConf(cfg))
 
 	return obu
 }
