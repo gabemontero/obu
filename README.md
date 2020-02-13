@@ -10,4 +10,6 @@ associated Image Stream specification.
 * `proxy` interrogates the OpenShift global proxy configuration and produces output easily consumable from command line 
 build tools
 * `registry` prints contents of either the Docker config file for authentication with the OpenShift internal registry or
-the ca.crt contents for HTTPS communication
+the ca.crt contents for HTTPS communication with the OpenShift internal registry
+* `mirror` prints contents of either the Docker config file for authentication with any OpenShift mirrored registries or
+the ca.crt contents for HTTPS communication with any OpenShift mirrored registries
