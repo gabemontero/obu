@@ -7,7 +7,8 @@ RUN ls -la
 
 FROM registry.access.redhat.com/ubi8/ubi:8.1-397
 COPY --from=builder /go/src/github.com/gabemontero/obu/obu /usr/bin/
-RUN useradd obu-user
-USER obu-user
+# tekton current seems to mess with home/passwd stuff, so the new user is commented out
+#RUN useradd obu-user
+#USER obu-user
 ENTRYPOINT []
 CMD ["/usr/bin/obu"]
