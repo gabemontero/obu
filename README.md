@@ -13,3 +13,5 @@ build tools
 the ca.crt contents for HTTPS communication with the OpenShift internal registry
 * `mirror` prints contents of either the Docker config file for authentication with any OpenShift mirrored registries or
 the ca.crt contents for HTTPS communication with any OpenShift mirrored registries
+
+Image with the binary:  quay.io/gabemontero/obu:latest
