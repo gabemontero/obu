@@ -35,7 +35,7 @@ $ obu registry --docker-cfg-file
 				return
 			}
 			coreClient := util.GetCoreClient(kubeconfig)
-			registryCAMap, err := coreClient.CoreV1().ConfigMaps("openshift-controller-manager").Get("openshift-service-ca", metav1.GetOptions{})
+			registryCAMap, err := coreClient.CoreV1().ConfigMaps("openshift-image-registry").Get("serviceca", metav1.GetOptions{})
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "ERROR: problem retrieving registry CA config map: %v\n", err)
 				return
